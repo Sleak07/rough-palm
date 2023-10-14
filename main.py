@@ -9,4 +9,6 @@ def copy_to_clipboard(user_input: Union[str, int]) -> None:
 if __name__ == "__main__":
     user_input = input("Enter your text or number: ")
     copy_to_clipboard(user_input)
+
+
     
