@@ -11,10 +11,15 @@ class Clipboard:
     user_input: Union[str, int, bytes]
     time: float = 0.0
 
-
-    def copy_to_clipboard(self, user_input: Union[str, int, bytes]) -> None:
+    def copy_to_clipboard(
+        self,
+        user_input: Union[
+            str,
+            int,
+            bytes,
+        ],
+    ) -> None:
         pyperclip.copy(str(user_input))
-
 
     def waiting_time(self, user_input: Union[str, int]) -> None:
         init = time.time()
@@ -28,8 +33,8 @@ class Clipboard:
         else:
             pass
 
+
 if __name__ == "__main__":
-    user_input = input("Enter your text or number: ")
+    user_input = input("Enter your text or number : ")
     clipboard = Clipboard(text="example", num=1, user_input=user_input)
     clipboard.waiting_time(user_input)
-    
