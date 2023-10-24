@@ -8,8 +8,10 @@ from dataclasses import dataclass
 class Clipboard:
     text: str
     num: int
-    user_input: Union[str, int, bytes]
+    user_input: Union[str, int, bytes]      
     time: float = 0.0
+
+# Copies the content the user provides to clipboard
 
     def copy_to_clipboard(
         self,
@@ -20,6 +22,8 @@ class Clipboard:
         ],
     ) -> None:
         pyperclip.copy(str(user_input))
+
+# Checks whether the user has given the specified input or raise error
 
     def waiting_time(self, user_input: Union[str, int]) -> None:
         init = time.time()
@@ -34,6 +38,7 @@ class Clipboard:
             pass
 
 
+# Calls the main function to execute the code
 if __name__ == "__main__":
     user_input = input("Enter your text or number : ")
     clipboard = Clipboard(text="example", num=1, user_input=user_input)
