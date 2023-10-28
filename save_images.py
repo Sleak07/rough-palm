@@ -1,28 +1,32 @@
+"""Taking a screeenshot of image and saving it to clipboard"""
+
 from PIL import ImageGrab
-from dataclasses import dataclass
 import pyperclip
+import io
+from dataclasses import dataclass
 
 
 @dataclass
 class Screenshot:
-    left: int
-    upper: int
-    right: int
-    lower: int
+    def __init__(self, image):
+        self.image = image
 
-    def capture(self):
-        screenshot = ImageGrab.grab(bbox=(self.left, self.upper, self.right, self.lower))  # noqa: E501
-        screenshot.show()
 
-# Define the bounding box for the screenshot
-bounding_box = Screenshot(left=100, upper=100, right=500, lower=500)
+""" Takes  a screenshot by user"""
 
-# Capture a screenshot of the specified region
-bounding_box.capture()
 
-# Copy the screenshot to clipboard
-pyperclip.copy(bounding_box)
+def take_screenshot():
+    screen_snap = ImageGrab.grab()
+
+    # save screensnap as bytesobject
+    buffer = io.BytesIO()
+    screen_snap.save(buffer, format="PNG")
+
+    screen_bytes = buffer.getvalue()
+
+    # save bytes to clipboard
+    pyperclip.copy(screen_bytes)
 
 
 if __name__ == "__main__":
-    screen = Screenshot(left=100, upper=100, right=500, lower=500)
+    take_screenshot()
