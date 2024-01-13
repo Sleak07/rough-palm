@@ -1,7 +1,0 @@
-pyperclip
-pillow
-pytest
-mypy
-radon
-ruff
-black
