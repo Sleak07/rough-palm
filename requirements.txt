@@ -1,7 +1,0 @@
-numpy
-opencv-python
-matplotlib
-scikit-image
-ruff
-black
-mypy
