@@ -1,4 +1,4 @@
-use image::GenericImageView;
+use image::{imageops, GenericImageView};
 
 fn main() {
     // opening the image
@@ -9,4 +9,14 @@ fn main() {
 
     // color type of image
     println!("{:?}", img.color());
+
+    // imageops in the image
+
+    let bright_image = imageops::brighten(&img, 70);
+    bright_image.save("brightened_galaxy.png").unwrap();
+    println!("image saved successfuly");
+
+
+
+
 }
