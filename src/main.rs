@@ -16,6 +16,13 @@ fn main() {
     bright_image.save("brightened_galaxy.png").unwrap();
     println!("image saved successfuly");
 
+    // flipping the image
+    let flip = imageops :: flip_horizontal(&img);
+    flip.save("flipped.png") .unwrap();
+    println!("flipped successful");
+
+    
+
 
 
 
