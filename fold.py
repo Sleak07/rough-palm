@@ -17,11 +17,15 @@ def check_images_exist(folder_path):
     
     return images_exist
 
-def convert_images_to_pdf(image_files, output_pdf):
-    with open(output_pdf, "wb") as f:
-        pdf_bytes = img2pdf.convert(image_files)
-        if pdf_bytes is not None:
-            f.write(pdf_bytes)
+def convert_images_to_pdf(image_files, output_folder):
+    os.makedirs(output_folder, exist_ok=True)
+    for image_file in image_files:
+        with open(image_file, 'rb') as f:
+            pdf_bytes = img2pdf.convert(f)
+            if pdf_bytes is not None:
+                output_pdf = os.path.join(output_folder, f"{os.path.splitext(os.path.basename(image_file))[0]}.pdf")
+                with open(output_pdf, "wb") as pdf_file:
+                    pdf_file.write(pdf_bytes)
 
 def compress_pdf(input_pdf, output_pdf):
     with open(input_pdf, 'rb') as input_file:

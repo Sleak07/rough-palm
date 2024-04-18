@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from fold import check_images_exist, convert_images_to_pdf, compress_pdf
+from fold import check_images_exist, convert_images_to_pdf
 
 # Streamlit UI
 def main():
@@ -22,19 +22,24 @@ def main():
                 image_files.append(os.path.join(temp_folder, uploaded_file.name))
 
             # Convert images to PDF
-            output_pdf = 'output.pdf'
-            convert_images_to_pdf(image_files, output_pdf)
+            output_folder = 'pdf_output'
+            convert_images_to_pdf(image_files, output_folder)
 
-            # Check PDF size and compress if necessary
-            pdf_size = os.path.getsize(output_pdf)
-            if pdf_size > 250 * 1024:  # 250 KB threshold
-                compressed_output_pdf = 'compressed_output.pdf'
-                compress_pdf(output_pdf, compressed_output_pdf)
-                st.success(f"PDF converted and compressed successfully. Download compressed PDF: [compressed_output.pdf](./{compressed_output_pdf})")
-            else:
-                st.success(f"PDF converted successfully. Download PDF: [output.pdf](./{output_pdf})")
+            # Prompt to delete the output folder
+            if st.checkbox("Delete output folder"):
+                delete_output_folder(output_folder)
+
+            st.success("Conversion completed successfully.")
         else:
             st.warning("Please upload at least one file.")
+
+# Function to delete the output folder
+def delete_output_folder(output_folder):
+    try:
+        os.rmdir(output_folder)
+        st.info("Output folder deleted successfully.")
+    except OSError as e:
+        st.error(f"Error deleting output folder: {e}")
 
 if __name__ == "__main__":
     main()
