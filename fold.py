@@ -1,4 +1,6 @@
 import os
+import img2pdf
+from PyPDF2 import PdfReader, PdfWriter
 
 def check_images_exist(folder_path):
     # Check if the folder exists
@@ -15,17 +17,21 @@ def check_images_exist(folder_path):
     
     return images_exist
 
-# Example usage:
-folder_path = '/path/to/your/folder'
-images_exist = check_images_exist(folder_path)
+def convert_images_to_pdf(image_files, output_pdf):
+    with open(output_pdf, "wb") as f:
+        pdf_bytes = img2pdf.convert(image_files)
+        if pdf_bytes is not None:
+            f.write(pdf_bytes)
 
-if images_exist:
-    print("Images exist in the folder.")
-else:
-    print("No images found in the folder.")
+def compress_pdf(input_pdf, output_pdf):
+    with open(input_pdf, 'rb') as input_file:
+        pdf_reader = PdfReader(input_file)
+        pdf_writer = PdfWriter()
 
-if __name__ == "__main__":
-    # You need to provide a folder path when calling check_images_exist()
-    # For example:
-    folder_path = '/path/to/your/folder'
-    check_images_exist(folder_path)
+        # Add all pages to the writer object
+        for page_num in range(pdf_reader.numPages):
+            pdf_writer.addPage(pdf_reader.getPage(page_num))
+
+        # Create a new PDF with compressed content
+        with open(output_pdf, 'wb') as output_file:
+            pdf_writer.write(output_file)
