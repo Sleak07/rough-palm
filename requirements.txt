@@ -1,3 +1,7 @@
-nose
-coverage
-pinnochio
+streamlit
+img2pdf
+PyPDF2
+pytest
+pytest-cov
+ruff
+black
