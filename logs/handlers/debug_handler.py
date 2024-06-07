@@ -1,6 +1,6 @@
 from loguru import logger
 
-from .main import LogHandler
+from .base import LogHandler
 
 """
     this file all the debug related message and logs to a sink

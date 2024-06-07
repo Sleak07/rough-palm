@@ -1,5 +1,5 @@
 """
-This main.py file defines the abstract class which serves the base for logging 
+This base file defines the abstract class which serves the base for logging 
 """      
 from abc import ABC,abstractmethod
 
