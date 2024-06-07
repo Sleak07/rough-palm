@@ -1,7 +1,4 @@
-streamlit
-img2pdf
-PyPDF2
-pytest
-pytest-cov
+mypy
 ruff
 black
+loguru
